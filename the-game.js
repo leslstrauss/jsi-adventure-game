@@ -32,6 +32,16 @@ var fs = require('fs');
  * @return {Room} - The room.
  * 
  */
+ /*@param {function} 'whereCanIGo' if direction is not null 
+ * then push to new array which is 'directions available'
+ *@returns {array} directions available/
+ *@param {function} 'howManyDoorsAreAvailable' how many directions
+* are available from 'directions available'.
+*@returns {number} number of doors
+*
+*@param {function} 'whereDoesThatDirectionGo' from direction select, 
+what is the 'new room' 
+*@returns {string} new room/
 
 module.exports.entranceLocator = function(map) {
   var entrance;

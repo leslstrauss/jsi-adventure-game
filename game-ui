@@ -22,21 +22,15 @@ var rl = readline.createInterface({
 });
 
 var currentRoom = entranceLocator(readMap);
-var nextRoom;
 
 
-rl.question("What direction would you like to go? %d %d %d", function(answer1) {
 
-  console.log (currentRoom.name);
-
-  // rl.question("Second number?", function(answer2) {
-  //   number2 = parseInt(answer2);
-
-  //   var sum = number1 + number2;
-
-  //   console.log("Sum:", sum);
-    rl.close();
-  });
+var directionOptions = whereCanIGo(currentRoom)
 
 
-//  console.log("Sum:", parseInt(answer1) + parse(answer2));
+rl.question("What direction would you like to go?" + directionOptions, function(answer1) {
+  var nextRoom = whereDoesThatDirectionGo(currentRoom, answer1);
+  console.log (nextRoom);
+  rl.close();
+});
+
