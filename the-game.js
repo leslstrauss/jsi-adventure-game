@@ -44,9 +44,17 @@ module.exports.entranceLocator = function (map) {
     };
   });
   return entrance;
+};
 
+module.exports.treasureLocator = function(map) {
+  var treasure;
 
-
+  map.rooms.forEach(function(room) {
+    if (room.treasure) {
+      treasure = room;
+    };
+  });
+  return treasure;  
 };
 
 /**
@@ -71,7 +79,7 @@ module.exports.readMap = function(file, cb) {
 };
 
 
-module.exports.whereCanIGo = function(room) {
+var whereCanIGo = module.exports.whereCanIGo = function(room) {
   var newArray = [];
 
   if (room.north) { 
@@ -87,6 +95,17 @@ module.exports.whereCanIGo = function(room) {
     newArray.push('west');
   }
   return newArray;
-
 };
+
+module.exports.howManyDoorsAreAvailable = function(room) {
+  var directions = whereCanIGo(room);
+  return directions.length;
+};
+
+module.exports.whereDoesThatDirectionGo = function(room, direction) {
+  var newRoom = room[direction];
+
+  return newRoom;
+};
+
 

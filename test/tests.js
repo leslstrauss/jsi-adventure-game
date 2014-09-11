@@ -5,6 +5,9 @@ var game = require('../the-game');
 var entranceLocator = game.entranceLocator;
 var readMap = game.readMap;
 var whereCanIGo = game.whereCanIGo;
+var howManyDoorsAreAvailable = game.howManyDoorsAreAvailable;
+var whereDoesThatDirectionGo = game.whereDoesThatDirectionGo;
+var treasureLocator = game.treasureLocator;
 
 describe("the-game()", function() {
   // given an object, it looks for the entrance
@@ -29,6 +32,30 @@ describe("the-game()", function() {
     var entrance = entranceLocator(map);
     expect(entrance).to.eql(roomB, 'Entrance room should be B');
   });
+
+  it("looks for the treasure given an object", function() {
+    //reads the rooms file and expects entrance to equal south
+    var roomB = {
+      "name": "B",
+      "north": "E",
+      "east": "C",
+      "south": null,
+      "west": "A",
+      "entrance": "south"
+    };
+    var roomC = {
+      "name": "C",
+      "north": null,
+      "east": null,
+      "south": null,
+      "west": "B",
+      "treasure": true
+    };
+    var map = { "rooms": [roomB, roomC] }; // changed var name
+    var treasure = treasureLocator(map);
+    expect(treasure).to.eql(roomC, 'treasure room should be C');
+  });
+
 
   it('can read maps', function(done) {
     var testFile = path.join(__dirname, 'fixtures/simple-game.json');
@@ -80,7 +107,44 @@ describe("the-game()", function() {
       "entrance": "south"
     };
     var result = whereCanIGo(roomB);
-    expect(result).to.eql(["north", "east", "west"])
+    expect(result.sort()).to.eql(["north", "east", "west"].sort())
+  });
+
+  it ("tells available directions in a specific order", function (){
+    var roomB = {
+      "name": "B",
+      "north": "E",
+      "east": "C",
+      "south": "F",
+      "west": "A",
+      "entrance": "south"
+    };
+    var result = whereCanIGo(roomB);
+    expect(result).to.eql(["north", "east", "south", "west"])
+  });
+  it('tells us how many doors are available', function() {
+  var chamberOfSecrets = {
+    name: 'C',
+    north: null,
+    east: null,
+    south: null,
+    west: 'Champagne Room'
+
+  };
+  var result = howManyDoorsAreAvailable(chamberOfSecrets);
+  expect(result).to.eql(1);
+  });
+
+  it('where does that direction go?', function () {
+    var theTorturerChamber = {
+      name: 'The Torturer Chamber',
+      north: 'Champagne Room',
+      east: null,
+      south: 'Chamber Of Secrets',
+      west: null
+    };
+    var result = whereDoesThatDirectionGo(theTorturerChamber, 'north');
+    expect (result).to.eql('Champagne Room');
   });
 
 });
