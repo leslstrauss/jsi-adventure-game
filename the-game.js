@@ -34,5 +34,15 @@ var gameLibrary = require('jsi-gamelib');
 
 
 module.exports.entranceLocator = function (map) {
-  return map.rooms[0];
+  var entrance;
+
+  map.rooms.forEach(function(room) {
+    // find the one that's called entrance
+    // if one of the properties of the array is entrance
+    if (room.entrance) {
+      entrance = room;
+    };
+  });
+  return entrance;
 };
+
