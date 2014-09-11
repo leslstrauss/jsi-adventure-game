@@ -23,7 +23,7 @@ describe("the-game()", function() {
       "west": "B"
     };
     var map = { "rooms": [roomB, roomC] }; // changed var name
-    var entrance = lib.entranceLocator(map);
+    var entrance = lib.findEntrance(map);
     expect(entrance).to.eql(roomB, 'Entrance room should be B');
   });
 
@@ -46,7 +46,7 @@ describe("the-game()", function() {
       "treasure": true
     };
     var map = { "rooms": [roomB, roomC] }; // changed var name
-    var treasure = lib.treasureLocator(map);
+    var treasure = lib.findTreasure(map);
     expect(treasure).to.eql(roomC, 'treasure room should be C');
   });
 
@@ -87,7 +87,7 @@ describe("the-game()", function() {
       "west": "B"
     };
     var map = { "rooms": [roomC, roomB] };
-    var entrance = lib.entranceLocator(map);
+    var entrance = lib.findEntrance(map);
     expect(entrance).to.eql(roomB, "Entrance room should be B");
   });
 
@@ -100,7 +100,7 @@ describe("the-game()", function() {
       "west": "A",
       "entrance": "south"
     };
-    var result = lib.whereCanIGo(roomB);
+    var result = lib.availableDirections(roomB);
     expect(result.sort()).to.eql(["north", "east", "west"].sort())
   });
 
@@ -113,20 +113,20 @@ describe("the-game()", function() {
       "west": "A",
       "entrance": "south"
     };
-    var result = lib.whereCanIGo(roomB);
+    var result = lib.availableDirections(roomB);
     expect(result).to.eql(["north", "east", "south", "west"])
   });
   it("tells us how many doors are available", function() {
-  var chamberOfSecrets = {
-    "name": "C",
-    "north": null,
-    "east": null,
-    "south": null,
-    "west": "Champagne Room"
+    var chamberOfSecrets = {
+      "name": "C",
+      "north": null,
+      "east": null,
+      "south": null,
+      "west": "Champagne Room"
 
-  };
-  var result = lib.howManyDoorsAreAvailable(chamberOfSecrets);
-  expect(result).to.eql(1);
+    };
+    var result = lib.availableDoorCount(chamberOfSecrets);
+    expect(result).to.eql(1);
   });
 
   it("where does that direction go?", function () {
@@ -147,42 +147,7 @@ describe("the-game()", function() {
       "west": "B"
     };
     var map = { "rooms": [roomB, roomC] }; // changed var name
-    var result = lib.whereDoesThatDirectionGo(map, roomB, "east");
+    var result = lib.findNextRoom(map, roomB, "east");
     expect(result).to.eql(roomC);
   });
 });
-
-
-
-
-
-
-// given a object/file, look for the entrance
-
-// it introduces the game
-
-// it states what room you are in
-
-// given a room, which directions can you go
-// it offers available directions
-
-// describe('options', function(){
-//   var room? = {
-
-//   }
-// });
-
-// it repeats when you choose a direction that is not available
-
-// it receives user input
-
-// it moves to the next room
-
-// it says you found the treasure when you reach K
-
-// it tells you how to quit
-
-// You are now playing The Best Game Ever. When prompted, please use -n to select north,
-// When you reach the correct room, the game will announce that you have found the secret treasure
-// and prompt you to press -q to quit.
-// You are now in room C. Would you like to go East or North?
