@@ -2,7 +2,7 @@
 var chai = require("chai");
 var expect = chai.expect;
 var path = require("path");
-var game = require('./the-game'); 
+var game = require('./index'); 
 var findEntrance = game.findEntrance;
 var readMap = game.readMap;
 var availableDirections = game.availableDirections;
@@ -18,8 +18,6 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-var treasureRoom;
 
 var showOptionsForRoom = function(map, room) {
 

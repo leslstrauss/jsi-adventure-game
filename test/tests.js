@@ -1,9 +1,9 @@
 var chai = require("chai");
 var expect = chai.expect;
 var path = require("path");
-var lib = require('../the-game');
+var lib = require('../index');
 
-describe("the-game()", function() {
+describe("the game", function() {
   // given an object, it looks for the entrance
   it("looks for the entrance given an object", function() {
     //reads the rooms file and expects entrance to equal south

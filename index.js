@@ -7,6 +7,7 @@ var fs = require('fs');
 
 /**
  * A map.
+ * TODO: complete this documentation
  *
  * @typedef {Object} Map
  * @property {Array.<Room>} rooms - The rooms in the map.
@@ -14,6 +15,7 @@ var fs = require('fs');
 
 /**
  * A room.
+ * TODO: complete this documentation
  *
  * @typedef {Object} Room
  * @property {String} name - The name of the room.
@@ -24,26 +26,14 @@ var fs = require('fs');
  * @property {?String} entrance - .
  */
 
+
 /**
  * findEntrance takes a mapObject and returns the
  * room with the entrance.
  *
  * @param {Map} map - The map thing.
  * @return {Room} - The room.
- * 
  */
- /*@param {function} 'availableDirections' if direction is not null 
- * then push to new array which is 'directions available'
- *@returns {array} directions available/
- *@param {function} 'availableDoorCount' how many directions
-* are available from 'directions available'.
-*@returns {number} number of doors
-*
-*@param {function} 'findNextRoom' from direction select, 
-what is the 'new room' 
-*@returns {string} new room/
-*/
-
 module.exports.findEntrance = function(map) {
   var entrance;
 
@@ -58,6 +48,7 @@ module.exports.findEntrance = function(map) {
 };
 
 
+// TODO: document me
 module.exports.findTreasure = function(map) {
   var treasure;
 
@@ -66,7 +57,7 @@ module.exports.findTreasure = function(map) {
       treasure = room;
     };
   });
-  return treasure;  
+  return treasure;
 };
 
 /**
@@ -91,6 +82,14 @@ module.exports.readMap = function(file, cb) {
 };
 
 
+/**
+ * TODO: This documentation needs to be formatted correctly and
+ * improved.
+ *
+ * @param {function} 'availableDirections' if direction is not null
+ * then push to new array which is 'directions available'
+ * @returns {array} directions available/
+ */
 var availableDirections = module.exports.availableDirections = function(room) {
   var newArray = [];
 
@@ -109,11 +108,27 @@ var availableDirections = module.exports.availableDirections = function(room) {
   return newArray;
 };
 
+/**
+ * TODO: This documentation needs to be formatted correctly and
+ * improved.
+ *
+ * @param {function} 'availableDoorCount' how many directions
+ * are available from 'directions available'.
+ * @returns {number} number of doors
+ */
 module.exports.availableDoorCount = function(room) {
   var directions = availableDirections(room);
   return directions.length;
 };
 
+/**
+ * TODO: This documentation needs to be formatted correctly and
+ * improved.
+ *
+ * @param {function} 'findNextRoom' from direction select,
+ * what is the 'new room'
+ * @returns {string} new room
+*/
 module.exports.findNextRoom = function(map, room, direction) {
   var newRoomName = room[direction];
   var newRoom;
@@ -126,5 +141,3 @@ module.exports.findNextRoom = function(map, room, direction) {
 
   return newRoom;
 };
-
-
