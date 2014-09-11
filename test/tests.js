@@ -1,7 +1,9 @@
 var chai = require('chai');
 var expect = chai.expect;
+var path = require('path');
 var game = require('../the-game');
 var entranceLocator = game.entranceLocator;
+var readMap = game.readMap;
 
 describe("the-game()", function() {
   // given an object, it looks for the entrance
@@ -22,9 +24,15 @@ describe("the-game()", function() {
       "south": null,
       "west": "B"
     };
-    var map = { "rooms": [roomB, roomC] };
+    var map = { "rooms": [roomB, roomC] }; // changed var name
     var entrance = entranceLocator(map);
     expect(entrance).to.eql(roomB, 'Entrance room should be B');
+  });
+
+  it('can read maps', function() {
+    var testFile = path.join(__dirname, 'fixtures/simple-game.json');
+    var map = readMap(testFile);
+    expect(map).to.have.property('rooms');
   });
 
 

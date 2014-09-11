@@ -1,0 +1,19 @@
+{
+  "rooms": [
+    {
+      "name": "A",
+      "north": null,
+      "east": "B",
+      "south": null,
+      "west": null
+    },
+    {
+      "name": "B",
+      "north": null,
+      "east": null,
+      "south": null,
+      "west": "A",
+      "entrance": "south"
+    }
+  ]
+}

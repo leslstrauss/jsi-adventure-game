@@ -32,7 +32,6 @@ var gameLibrary = require('jsi-gamelib');
  * 
  */
 
-
 module.exports.entranceLocator = function (map) {
   var entrance;
 
@@ -44,5 +43,16 @@ module.exports.entranceLocator = function (map) {
     };
   });
   return entrance;
+
+
+
 };
 
+
+/**
+ * @param {String} file - Path to file containing map info.
+ */
+module.exports.readMap = function(file) {
+  return require(file);
+  
+};
