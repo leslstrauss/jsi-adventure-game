@@ -69,3 +69,24 @@ module.exports.readMap = function(file, cb) {
     cb(null, map);
   });
 };
+
+
+module.exports.whereCanIGo = function(room) {
+  var newArray = [];
+
+  if (room.north) { 
+    newArray.push('north'); 
+  }
+  if (room.east) {
+    newArray.push('east');
+  }
+  if (room.south) { 
+    newArray.push('south');  
+  }
+  if (room.west) {
+    newArray.push('west');
+  }
+  return newArray;
+
+};
+

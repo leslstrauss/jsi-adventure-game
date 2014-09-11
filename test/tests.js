@@ -4,6 +4,7 @@ var path = require('path');
 var game = require('../the-game');
 var entranceLocator = game.entranceLocator;
 var readMap = game.readMap;
+var whereCanIGo = game.whereCanIGo;
 
 describe("the-game()", function() {
   // given an object, it looks for the entrance
@@ -69,6 +70,18 @@ describe("the-game()", function() {
     expect(entrance).to.eql(roomB, 'Entrance room should be B');
   });
 
+  it ("tells available directions", function (){
+    var roomB = {
+      "name": "B",
+      "north": "E",
+      "east": "C",
+      "south": null,
+      "west": "A",
+      "entrance": "south"
+    };
+    var result = whereCanIGo(roomB);
+    expect(result).to.eql(["north", "east", "west"])
+  });
 
 });
 
