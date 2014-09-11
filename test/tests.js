@@ -1,6 +1,6 @@
-var chai = require('chai');
+var chai = require("chai");
 var expect = chai.expect;
-var path = require('path');
+var path = require("path");
 var game = require('../the-game');
 var entranceLocator = game.entranceLocator;
 var readMap = game.readMap;
@@ -57,17 +57,17 @@ describe("the-game()", function() {
   });
 
 
-  it('can read maps', function(done) {
-    var testFile = path.join(__dirname, 'fixtures/simple-game.json');
+  it("can read maps", function(done) {
+    var testFile = path.join(__dirname, "fixtures/simple-game.json");
     readMap(testFile, function(err, map) {
-      expect(map).to.have.property('rooms');
+      expect(map).to.have.property("rooms");
       expect(err).to.not.exist;
       done();
     });
   });
 
-  it('gives errors when reading maps for missing files', function(done) {
-    var testFile = path.join(__dirname, 'fixtures/missing-game.json');
+  it("gives errors when reading maps for missing files", function(done) {
+    var testFile = path.join(__dirname, "fixtures/missing-game.json");
     readMap(testFile, function(err, map) {
       expect(err).to.exist;
       expect(map).to.not.exist;
@@ -94,7 +94,7 @@ describe("the-game()", function() {
     };
     var map = { "rooms": [roomC, roomB] };
     var entrance = entranceLocator(map);
-    expect(entrance).to.eql(roomB, 'Entrance room should be B');
+    expect(entrance).to.eql(roomB, "Entrance room should be B");
   });
 
   it ("tells available directions", function (){
@@ -122,31 +122,30 @@ describe("the-game()", function() {
     var result = whereCanIGo(roomB);
     expect(result).to.eql(["north", "east", "south", "west"])
   });
-  it('tells us how many doors are available', function() {
+  it("tells us how many doors are available", function() {
   var chamberOfSecrets = {
-    name: 'C',
-    north: null,
-    east: null,
-    south: null,
-    west: 'Champagne Room'
+    "name": "C",
+    "north": null,
+    "east": null,
+    "south": null,
+    "west": "Champagne Room"
 
   };
   var result = howManyDoorsAreAvailable(chamberOfSecrets);
   expect(result).to.eql(1);
   });
 
-  it('where does that direction go?', function () {
+  it("where does that direction go?", function () {
     var theTorturerChamber = {
-      name: 'The Torturer Chamber',
-      north: 'Champagne Room',
-      east: null,
-      south: 'Chamber Of Secrets',
-      west: null
+      "name": "The Torturer Chamber",
+      "north": "Champagne Room",
+      "east": null,
+      "south": "Chamber Of Secrets",
+      "west": null
     };
-    var result = whereDoesThatDirectionGo(theTorturerChamber, 'north');
-    expect (result).to.eql('Champagne Room');
+    var result = whereDoesThatDirectionGo(theTorturerChamber, "north");
+    expect (result).to.eql("Champagne Room");
   });
-
 });
 
 

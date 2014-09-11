@@ -33,7 +33,7 @@ var fs = require('fs');
  * 
  */
 
-module.exports.entranceLocator = function (map) {
+module.exports.entranceLocator = function(map) {
   var entrance;
 
   map.rooms.forEach(function(room) {
@@ -45,6 +45,7 @@ module.exports.entranceLocator = function (map) {
   });
   return entrance;
 };
+
 
 module.exports.treasureLocator = function(map) {
   var treasure;

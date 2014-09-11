@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+var chai = require("chai");
+var expect = chai.expect;
+var path = require("path");
+var game = require('./the-game'); 
+var entranceLocator = game.entranceLocator;
+var readMap = game.readMap;
+var whereCanIGo = game.whereCanIGo;
+var howManyDoorsAreAvailable = game.howManyDoorsAreAvailable;
+var whereDoesThatDirectionGo = game.whereDoesThatDirectionGo;
+var treasureLocator = game.treasureLocator;
+
+var gameLibrary = require('jsi-gamelib');
+var fs = require('fs');
+var readline = require('readline');
+
+var readMap = require('./game.json');
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+var currentRoom = entranceLocator(readMap);
+var nextRoom;
+
+
+rl.question("What direction would you like to go? %d %d %d", function(answer1) {
+
+  console.log (currentRoom.name);
+
+  // rl.question("Second number?", function(answer2) {
+  //   number2 = parseInt(answer2);
+
+  //   var sum = number1 + number2;
+
+  //   console.log("Sum:", sum);
+    rl.close();
+  });
+
+
+//  console.log("Sum:", parseInt(answer1) + parse(answer2));
