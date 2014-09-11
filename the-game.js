@@ -114,8 +114,15 @@ module.exports.howManyDoorsAreAvailable = function(room) {
   return directions.length;
 };
 
-module.exports.whereDoesThatDirectionGo = function(room, direction) {
-  var newRoom = room[direction];
+module.exports.whereDoesThatDirectionGo = function(map, room, direction) {
+  var newRoomName = room[direction];
+  var newRoom;
+
+  map.rooms.forEach(function(room) {
+    if (room.name === newRoomName) {
+      newRoom = room;
+    };
+  });
 
   return newRoom;
 };

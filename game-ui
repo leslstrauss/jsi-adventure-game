@@ -14,23 +14,32 @@ var gameLibrary = require('jsi-gamelib');
 var fs = require('fs');
 var readline = require('readline');
 
-var readMap = require('./game.json');
-
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-var currentRoom = entranceLocator(readMap);
+var showOptionsForRoom = function(map, room) {
+
+  var directionOptions = whereCanIGo(room)
+  var treasureRoom = treasureLocator(map);
 
 
+  rl.question("What direction would you like to go?" + directionOptions, function(answer1) {
+    var nextRoom = whereDoesThatDirectionGo(map, room, answer1);
 
-var directionOptions = whereCanIGo(currentRoom)
+    if (nextRoom === treasureRoom) {
+      console.log('great job!');
+      rl.close();
+    }
+    else {
+      showOptionsForRoom(map, nextRoom);
+    }
+  });
 
+};
 
-rl.question("What direction would you like to go?" + directionOptions, function(answer1) {
-  var nextRoom = whereDoesThatDirectionGo(currentRoom, answer1);
-  console.log (nextRoom);
-  rl.close();
+readMap(process.argv[2], function(err, map) {
+  var currentRoom = entranceLocator(map);
+  showOptionsForRoom(map, currentRoom);
 });
-

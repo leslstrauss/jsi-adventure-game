@@ -136,15 +136,25 @@ describe("the-game()", function() {
   });
 
   it("where does that direction go?", function () {
-    var theTorturerChamber = {
-      "name": "The Torturer Chamber",
-      "north": "Champagne Room",
-      "east": null,
-      "south": "Chamber Of Secrets",
-      "west": null
+    //reads the rooms file and expects entrance to equal south
+    var roomB = {
+      "name": "B",
+      "north": "E",
+      "east": "C",
+      "south": null,
+      "west": "A",
+      "entrance": "south"
     };
-    var result = whereDoesThatDirectionGo(theTorturerChamber, "north");
-    expect (result).to.eql("Champagne Room");
+    var roomC = {
+      "name": "C",
+      "north": null,
+      "east": null,
+      "south": null,
+      "west": "B"
+    };
+    var map = { "rooms": [roomB, roomC] }; // changed var name
+    var result = whereDoesThatDirectionGo(map, roomB, "east");
+    expect(result).to.eql(roomC);
   });
 });
 
