@@ -5,7 +5,7 @@ var entranceLocator = game.entranceLocator;
 
 describe("the-game()", function() {
   // given an object, it looks for the entrance
-  it.skip("looks for the entrance given an object", function() {
+  it("looks for the entrance given an object", function() {
     //reads the rooms file and expects entrance to equal south
     var roomB = {
       "name": "B",

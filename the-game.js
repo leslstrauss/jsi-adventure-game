@@ -33,6 +33,6 @@ var gameLibrary = require('jsi-gamelib');
  */
 
 
-module.exports.entranceLocator = function () {
-
+module.exports.entranceLocator = function (map) {
+  return map.rooms[0];
 };
