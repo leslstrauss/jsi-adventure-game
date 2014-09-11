@@ -1,13 +1,7 @@
 var chai = require("chai");
 var expect = chai.expect;
 var path = require("path");
-var game = require('../the-game');
-var entranceLocator = game.entranceLocator;
-var readMap = game.readMap;
-var whereCanIGo = game.whereCanIGo;
-var howManyDoorsAreAvailable = game.howManyDoorsAreAvailable;
-var whereDoesThatDirectionGo = game.whereDoesThatDirectionGo;
-var treasureLocator = game.treasureLocator;
+var lib = require('../the-game');
 
 describe("the-game()", function() {
   // given an object, it looks for the entrance
@@ -29,7 +23,7 @@ describe("the-game()", function() {
       "west": "B"
     };
     var map = { "rooms": [roomB, roomC] }; // changed var name
-    var entrance = entranceLocator(map);
+    var entrance = lib.entranceLocator(map);
     expect(entrance).to.eql(roomB, 'Entrance room should be B');
   });
 
@@ -52,14 +46,14 @@ describe("the-game()", function() {
       "treasure": true
     };
     var map = { "rooms": [roomB, roomC] }; // changed var name
-    var treasure = treasureLocator(map);
+    var treasure = lib.treasureLocator(map);
     expect(treasure).to.eql(roomC, 'treasure room should be C');
   });
 
 
   it("can read maps", function(done) {
     var testFile = path.join(__dirname, "fixtures/simple-game.json");
-    readMap(testFile, function(err, map) {
+    lib.readMap(testFile, function(err, map) {
       expect(map).to.have.property("rooms");
       expect(err).to.not.exist;
       done();
@@ -68,7 +62,7 @@ describe("the-game()", function() {
 
   it("gives errors when reading maps for missing files", function(done) {
     var testFile = path.join(__dirname, "fixtures/missing-game.json");
-    readMap(testFile, function(err, map) {
+    lib.readMap(testFile, function(err, map) {
       expect(err).to.exist;
       expect(map).to.not.exist;
       done();
@@ -93,7 +87,7 @@ describe("the-game()", function() {
       "west": "B"
     };
     var map = { "rooms": [roomC, roomB] };
-    var entrance = entranceLocator(map);
+    var entrance = lib.entranceLocator(map);
     expect(entrance).to.eql(roomB, "Entrance room should be B");
   });
 
@@ -106,7 +100,7 @@ describe("the-game()", function() {
       "west": "A",
       "entrance": "south"
     };
-    var result = whereCanIGo(roomB);
+    var result = lib.whereCanIGo(roomB);
     expect(result.sort()).to.eql(["north", "east", "west"].sort())
   });
 
@@ -119,7 +113,7 @@ describe("the-game()", function() {
       "west": "A",
       "entrance": "south"
     };
-    var result = whereCanIGo(roomB);
+    var result = lib.whereCanIGo(roomB);
     expect(result).to.eql(["north", "east", "south", "west"])
   });
   it("tells us how many doors are available", function() {
@@ -131,7 +125,7 @@ describe("the-game()", function() {
     "west": "Champagne Room"
 
   };
-  var result = howManyDoorsAreAvailable(chamberOfSecrets);
+  var result = lib.howManyDoorsAreAvailable(chamberOfSecrets);
   expect(result).to.eql(1);
   });
 
@@ -153,7 +147,7 @@ describe("the-game()", function() {
       "west": "B"
     };
     var map = { "rooms": [roomB, roomC] }; // changed var name
-    var result = whereDoesThatDirectionGo(map, roomB, "east");
+    var result = lib.whereDoesThatDirectionGo(map, roomB, "east");
     expect(result).to.eql(roomC);
   });
 });
