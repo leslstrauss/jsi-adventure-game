@@ -42,6 +42,7 @@ var fs = require('fs');
 *@param {function} 'whereDoesThatDirectionGo' from direction select, 
 what is the 'new room' 
 *@returns {string} new room/
+*/
 
 module.exports.entranceLocator = function(map) {
   var entrance;
