@@ -1,4 +1,5 @@
 var gameLibrary = require('jsi-gamelib');
+var fs = require('fs');
 
 // npm install -g jsdoc
 // jsdoc .
@@ -48,11 +49,23 @@ module.exports.entranceLocator = function (map) {
 
 };
 
+/**
+ * @callback ReadMapCallback
+ * @param {Error} err - The error, if there was an error.
+ * @param {Map} map - The resulting map.
+ */
 
 /**
+ * Read a map from a file.
+ *
  * @param {String} file - Path to file containing map info.
+ * @param {ReadMapCallback} cb - The callback to call once the map has been
+ * read.
  */
-module.exports.readMap = function(file) {
-  return require(file);
-  
+module.exports.readMap = function(file, cb) {
+  fs.readFile(file, { contents: 'utf-8' }, function(err, contents) {
+    if (err) { cb(err); return; }
+    var map = JSON.parse(contents);
+    cb(null, map);
+  });
 };

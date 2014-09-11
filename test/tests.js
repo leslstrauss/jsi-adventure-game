@@ -29,12 +29,23 @@ describe("the-game()", function() {
     expect(entrance).to.eql(roomB, 'Entrance room should be B');
   });
 
-  it('can read maps', function() {
+  it('can read maps', function(done) {
     var testFile = path.join(__dirname, 'fixtures/simple-game.json');
-    var map = readMap(testFile);
-    expect(map).to.have.property('rooms');
+    readMap(testFile, function(err, map) {
+      expect(map).to.have.property('rooms');
+      expect(err).to.not.exist;
+      done();
+    });
   });
 
+  it('gives errors when reading maps for missing files', function(done) {
+    var testFile = path.join(__dirname, 'fixtures/missing-game.json');
+    readMap(testFile, function(err, map) {
+      expect(err).to.exist;
+      expect(map).to.not.exist;
+      done();
+    });
+  });
 
   it("looks for the entrance given an object", function() {
     //reads the rooms file and expects entrance to equal south
