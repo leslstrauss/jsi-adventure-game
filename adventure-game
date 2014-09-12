@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+var chai = require("chai");
+var expect = chai.expect;
+var path = require("path");
+var game = require('./index'); 
+var findEntrance = game.findEntrance;
+var readMap = game.readMap;
+var availableDirections = game.availableDirections;
+var availableDoorCount = game.availableDoorCount;
+var findNextRoom = game.findNextRoom;
+var findTreasure = game.findTreasure;
+
+var gameLibrary = require('jsi-gamelib');
+var fs = require('fs');
+var readline = require('readline');
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+var showOptionsForRoom = function(map, room) {
+
+  var directionOptions = availableDirections(room)
+  var treasureRoom = findTreasure(map);
+
+
+  rl.question("What direction would you like to go?" + directionOptions, function(answer1) {
+    var nextRoom = findNextRoom(map, room, answer1);
+
+    if (nextRoom === treasureRoom) {
+      console.log('great job!');
+      rl.close();
+    }
+    else {
+      showOptionsForRoom(map, nextRoom);
+    }
+  });
+
+};
+
+readMap(process.argv[2], function(err, map) {
+  var currentRoom = findEntrance(map);
+  showOptionsForRoom(map, currentRoom);
+});

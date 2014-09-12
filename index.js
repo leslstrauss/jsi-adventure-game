@@ -7,6 +7,7 @@ var fs = require('fs');
 
 /**
  * A map.
+ * TODO: complete this documentation
  *
  * @typedef {Object} Map
  * @property {Array.<Room>} rooms - The rooms in the map.
@@ -14,6 +15,7 @@ var fs = require('fs');
 
 /**
  * A room.
+ * TODO: complete this documentation
  *
  * @typedef {Object} Room
  * @property {String} name - The name of the room.
@@ -24,26 +26,15 @@ var fs = require('fs');
  * @property {?String} entrance - .
  */
 
+
 /**
- * entranceLocator takes a mapObject and returns the
+ * findEntrance takes a mapObject and returns the
  * room with the entrance.
  *
  * @param {Map} map - The map thing.
  * @return {Room} - The room.
- * 
  */
- /*@param {function} 'whereCanIGo' if direction is not null 
- * then push to new array which is 'directions available'
- *@returns {array} directions available/
- *@param {function} 'howManyDoorsAreAvailable' how many directions
-* are available from 'directions available'.
-*@returns {number} number of doors
-*
-*@param {function} 'whereDoesThatDirectionGo' from direction select, 
-what is the 'new room' 
-*@returns {string} new room/
-
-module.exports.entranceLocator = function(map) {
+module.exports.findEntrance = function(map) {
   var entrance;
 
   map.rooms.forEach(function(room) {
@@ -57,7 +48,8 @@ module.exports.entranceLocator = function(map) {
 };
 
 
-module.exports.treasureLocator = function(map) {
+// TODO: document me
+module.exports.findTreasure = function(map) {
   var treasure;
 
   map.rooms.forEach(function(room) {
@@ -65,7 +57,7 @@ module.exports.treasureLocator = function(map) {
       treasure = room;
     };
   });
-  return treasure;  
+  return treasure;
 };
 
 /**
@@ -90,7 +82,15 @@ module.exports.readMap = function(file, cb) {
 };
 
 
-var whereCanIGo = module.exports.whereCanIGo = function(room) {
+/**
+ * TODO: This documentation needs to be formatted correctly and
+ * improved.
+ *
+ * @param {function} 'availableDirections' if direction is not null
+ * then push to new array which is 'directions available'
+ * @returns {array} directions available/
+ */
+var availableDirections = module.exports.availableDirections = function(room) {
   var newArray = [];
 
   if (room.north) { 
@@ -108,15 +108,36 @@ var whereCanIGo = module.exports.whereCanIGo = function(room) {
   return newArray;
 };
 
-module.exports.howManyDoorsAreAvailable = function(room) {
-  var directions = whereCanIGo(room);
+/**
+ * TODO: This documentation needs to be formatted correctly and
+ * improved.
+ *
+ * @param {function} 'availableDoorCount' how many directions
+ * are available from 'directions available'.
+ * @returns {number} number of doors
+ */
+module.exports.availableDoorCount = function(room) {
+  var directions = availableDirections(room);
   return directions.length;
 };
 
-module.exports.whereDoesThatDirectionGo = function(room, direction) {
-  var newRoom = room[direction];
+/**
+ * TODO: This documentation needs to be formatted correctly and
+ * improved.
+ *
+ * @param {function} 'findNextRoom' from direction select,
+ * what is the 'new room'
+ * @returns {string} new room
+*/
+module.exports.findNextRoom = function(map, room, direction) {
+  var newRoomName = room[direction];
+  var newRoom;
+
+  map.rooms.forEach(function(room) {
+    if (room.name === newRoomName) {
+      newRoom = room;
+    };
+  });
 
   return newRoom;
 };
-
-
